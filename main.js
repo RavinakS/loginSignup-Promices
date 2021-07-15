@@ -13,7 +13,11 @@ const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 function passwordValidation(password){
     return new Promise ((resolve, reject)=>{
-        
+        if(password.includes("@") || password.includes("#")){
+            
+        }else{
+            console.log("Atleas password should contain one special character and one number.");
+        }
     })
 }
 
