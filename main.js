@@ -86,7 +86,7 @@ function writeJsonFile(fileName, user_details){
         all_users_dtl.user.push(user_details);
         aUser = JSON.stringify(all_users_dtl);
         fs.writeFileSync(fileName, all_users_dtl);
-        return data;
+        return user_details;
     // })
 }
 
