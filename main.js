@@ -12,15 +12,19 @@ function signUp(){
 
         if(password1 === password2){
             passwordValidation(password1).then((resolved)=>{
-                let userDetails = {"user":[
-                    {"username":userName, "password":password1}
-                ]}
+                let userDetails = {"username":userName, "password":password1}
                 return userDetails;
 
             }).then((userDetails)=>{
-                let fileName = "userdetails.json";
-                writeJsonFile(fileName, userDetails);
-                return userDetails;
+
+                let response = checkingUsername(userDetails, userName);
+                if(response===true){
+                    resolve('Username Already Exists.');
+                }else{
+                    let fileName = "userdetails.json";
+                    let user = writeJsonFile(fileName, userDetails);
+                    
+                }
 
             }).then((userDetails)=>{
                 resolve(`Congrats ${userDetails.user[0]["username"]} you are Signed Up Successfully.`);
@@ -81,10 +85,27 @@ function readJSONFile(fileName){
 }
 
 function writeJsonFile(fileName, data){
-    return new Promise((resolve, reject)=>{
+    // return new Promise((resolve, reject)=>{
+
+        let all_data = {}
         aUser = JSON.stringify(data);
         fs.writeFileSync(fileName, aUser);
-    })
+        return data;
+    // })
+}
+
+function checkingUsername(fileName, userName){
+        let count = 0;
+        for(count; count<usersdetails['user'].length; count++){
+            if(usersdetails['user']['username']===userName){
+                break;
+            }
+        }
+        if(count<usersdetails.user.length){
+            return true;
+        }else{
+            return false;
+        }
 }
 
 if(user ==='s' || user === 'S'){
