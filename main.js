@@ -81,23 +81,21 @@ function readJSONFile(fileName){
 }
 
 function writeJsonFile(fileName, user_details){
-    // return new Promise((resolve, reject)=>{
         all_users_dtl = readJSONFile(fileName);
         all_users_dtl.user.push(user_details);
         all_users_dtl = JSON.stringify(all_users_dtl);
         fs.writeFileSync(fileName, all_users_dtl);
         return user_details;
-    // })
 }
 
 function checkingUsername(usersdetails, username){
         let count = 0;
         for(count; count<usersdetails['user'].length; count++){
-            if(usersdetails['user']['username']===username){
+            if(usersdetails['user'][count]['username']===username){
                 break;
             }
         }
-        if(count<usersdetails.user.length){
+        if(count<usersdetails['user'].length){
             return true;
         }else{
             return false;
