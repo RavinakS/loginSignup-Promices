@@ -60,14 +60,26 @@ if(user ==='s' || user === 'S'){
     const userName = readline.question("Type your userName:- ");
     const password1 = readline.question("Enter password:- ");
     const password2 = readline.question("Re-enter the password:- ");
+
     if(password1 === password2){
         passwordValidation(password1).then((resolved)=>{
             let userDetails = {"user":[
                 {"username":userName, "password":password1}
             ]}
-            console.log(resolved);
-            console.log(userDetails);
+            // console.log(resolved);
+            // console.log(userDetails);
+            return userDetails;
+
+        }).then((userDetails)=>{
+            let fileName = "userdetails.json";
+            writeJsonFile(fileName, userDetails);
+            return userDetails;
+
+        }).then((userDetails)=>{
+            console.log(`Congrats ${userDetails.user[0]["username"]} you are Signed Up Successfully.`);
+            
         }).catch((err)=>console.log(err))
+
     }else{
         console.log("Both Passwords are not same.");
     }
