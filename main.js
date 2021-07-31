@@ -4,15 +4,6 @@ const { resolve } = require('path');
 
 const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
-// function signUp(){
-//     return new Promise ((resolve, reject) => {
-//         const userName = readline.question("Type your userName:- ");
-//         const password1 = readline.question("Enter password:- ");
-//         const password2 = readline.question("Re-enter the password:- ");
-//         resolve([userName, password1, password2]);
-//     })
-// }
-
 function isNumberInString(password){
     return new Promise((resolve, reject)=>{
         const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -40,12 +31,14 @@ function isNumberInString(password){
 function passwordValidation(password){
     return new Promise ((resolve, reject)=>{
         if(password.includes("@") || password.includes("#")){
-            const isNumber = isNumberInString(password)
-            if(isNumber === "Valid"){
-                resolve("Valid");
-            }
+            // const isNumber = isNumberInString(password)
+            isNumberInString(password).then((message)=>{
+                if(message === "Valid"){
+                    resolve('You are logged in successfully');
+                }
+            })
         }else{
-            console.log("Atleas password should contain one special character and one number.");
+            reject("Atleas password should contain one special character and one number.");
         }
     })
 }
@@ -58,7 +51,8 @@ function readJSONFile(fileName){
 
 function writeJsonFile(fileName, data){
     return new Promise((resolve, reject)=>{
-
+        aUser = JSON.stringify(data);
+        fs.writeFileSync(fileName, aUser);
     })
 }
 
@@ -67,7 +61,13 @@ if(user ==='s' || user === 'S'){
     const password1 = readline.question("Enter password:- ");
     const password2 = readline.question("Re-enter the password:- ");
     if(password1 === password2){
-        passwordValidation.then(())
+        passwordValidation(password1).then((resolved)=>{
+            let userDetails = {"user":[
+                {"username":userName, "password":password1}
+            ]}
+            console.log(resolved);
+            console.log(userDetails);
+        }).catch((err)=>console.log(err))
     }else{
         console.log("Both Passwords are not same.");
     }
