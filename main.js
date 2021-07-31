@@ -9,6 +9,7 @@ function signUp(){
         const userName = readline.question("Type your userName:- ");
         const password1 = readline.question("Enter password:- ");
         const password2 = readline.question("Re-enter the password:- ");
+        let fileName = "userdetails.json";
 
         if(password1 === password2){
             passwordValidation(password1).then((resolved)=>{
@@ -16,18 +17,13 @@ function signUp(){
                 return userDetails;
 
             }).then((userDetails)=>{
-
-                let response = checkingUsername(userDetails, userName);
+                let all_users_dtl = readJSONFile(fileName);
+                let response = checkingUsername(all_users_dtl, userName);
                 if(response===true){
                     resolve('Username Already Exists.');
                 }else{
-                    let fileName = "userdetails.json";
-                    let user = writeJsonFile(fileName, userDetails);
-                    
-                }
-
-            }).then((userDetails)=>{
-                resolve(`Congrats ${userDetails.user[0]["username"]} you are Signed Up Successfully.`);
+                    writeJsonFile(fileName, userDetails);
+                    resolve(`Congrats ${userName} you are Signed Up Successfully.`);}
 
             }).catch((err)=>console.log(err))
         }else{
@@ -76,20 +72,20 @@ function passwordValidation(password){
 }
 
 function readJSONFile(fileName){
-    return new Promise((resolve, reject)=>{
+    // return new Promise((resolve, reject)=>{
         let rawdata = fs.readFileSync(fileName);
         let dataInObjForm = JSON.parse(rawdata);
         // This function handles parsing the raw data, converts it to ASCII text, and parses the actual JSON data in to a JavaScript object
-        resolve(dataInObjForm);
-    })
+        return dataInObjForm;
+    // })
 }
 
-function writeJsonFile(fileName, data){
+function writeJsonFile(fileName, user_details){
     // return new Promise((resolve, reject)=>{
-
-        let all_data = {}
+        all_users_dtl = readJSONFile(fileName);
+        all_users_dtl.user.push(user_details);
         aUser = JSON.stringify(data);
-        fs.writeFileSync(fileName, aUser);
+        fs.writeFileSync(fileName, all_users_dtl);
         return data;
     // })
 }
