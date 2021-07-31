@@ -4,6 +4,34 @@ const { resolve } = require('path');
 
 const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
+function signUp(){
+    return new Promise((resolve, reject)=>{
+        const userName = readline.question("Type your userName:- ");
+        const password1 = readline.question("Enter password:- ");
+        const password2 = readline.question("Re-enter the password:- ");
+
+        if(password1 === password2){
+            passwordValidation(password1).then((resolved)=>{
+                let userDetails = {"user":[
+                    {"username":userName, "password":password1}
+                ]}
+                return userDetails;
+
+            }).then((userDetails)=>{
+                let fileName = "userdetails.json";
+                writeJsonFile(fileName, userDetails);
+                return userDetails;
+
+            }).then((userDetails)=>{
+                resolve(`Congrats ${userDetails.user[0]["username"]} you are Signed Up Successfully.`);
+
+            }).catch((err)=>console.log(err))
+        }else{
+            reject("Both Passwords are not same.");
+        }
+    })
+}
+
 function isNumberInString(password){
     return new Promise((resolve, reject)=>{
         const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -57,30 +85,7 @@ function writeJsonFile(fileName, data){
 }
 
 if(user ==='s' || user === 'S'){
-    const userName = readline.question("Type your userName:- ");
-    const password1 = readline.question("Enter password:- ");
-    const password2 = readline.question("Re-enter the password:- ");
-
-    if(password1 === password2){
-        passwordValidation(password1).then((resolved)=>{
-            let userDetails = {"user":[
-                {"username":userName, "password":password1}
-            ]}
-            // console.log(resolved);
-            // console.log(userDetails);
-            return userDetails;
-
-        }).then((userDetails)=>{
-            let fileName = "userdetails.json";
-            writeJsonFile(fileName, userDetails);
-            return userDetails;
-
-        }).then((userDetails)=>{
-            console.log(`Congrats ${userDetails.user[0]["username"]} you are Signed Up Successfully.`);
-            
-        }).catch((err)=>console.log(err))
-
-    }else{
-        console.log("Both Passwords are not same.");
-    }
+    signUp().then((resolveMessage)=>{
+        console.log(resolveMessage);
+    }).catch((error)=>console.error(error))
 }
