@@ -59,7 +59,6 @@ function isNumberInString(password){
 function passwordValidation(password){
     return new Promise ((resolve, reject)=>{
         if(password.includes("@") || password.includes("#")){
-            // const isNumber = isNumberInString(password)
             isNumberInString(password).then((message)=>{
                 if(message === "Valid"){
                     resolve('You are logged in successfully');
@@ -72,12 +71,10 @@ function passwordValidation(password){
 }
 
 function readJSONFile(fileName){
-    // return new Promise((resolve, reject)=>{
         let rawdata = fs.readFileSync(fileName);
         let dataInObjForm = JSON.parse(rawdata);
         // This function handles parsing the raw data, converts it to ASCII text, and parses the actual JSON data in to a JavaScript object
         return dataInObjForm;
-    // })
 }
 
 function writeJsonFile(fileName, user_details){
