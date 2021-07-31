@@ -84,7 +84,7 @@ function writeJsonFile(fileName, user_details){
     // return new Promise((resolve, reject)=>{
         all_users_dtl = readJSONFile(fileName);
         all_users_dtl.user.push(user_details);
-        aUser = JSON.stringify(data);
+        aUser = JSON.stringify(all_users_dtl);
         fs.writeFileSync(fileName, all_users_dtl);
         return data;
     // })
