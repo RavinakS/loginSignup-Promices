@@ -18,7 +18,7 @@ function signUp(){
 
             }).then((userDetails)=>{
                 let all_users_dtl = readJSONFile(fileName);
-                let response = checkingUsername(all_users_dtl, userDetails);
+                let response = checkingUsername(all_users_dtl, userName);
                 if(response===true){
                     resolve('Username Already Exists.');
                 }else{
@@ -90,10 +90,10 @@ function writeJsonFile(fileName, user_details){
     // })
 }
 
-function checkingUsername(fileName, usersdetails){
+function checkingUsername(usersdetails, username){
         let count = 0;
         for(count; count<usersdetails['user'].length; count++){
-            if(usersdetails['user']['username']===userName){
+            if(usersdetails['user']['username']===username){
                 break;
             }
         }
