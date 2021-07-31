@@ -73,7 +73,10 @@ function passwordValidation(password){
 
 function readJSONFile(fileName){
     return new Promise((resolve, reject)=>{
-
+        let rawdata = fs.readFileSync(fileName);
+        let dataInObjForm = JSON.parse(rawdata);
+        // This function handles parsing the raw data, converts it to ASCII text, and parses the actual JSON data in to a JavaScript object
+        resolve(dataInObjForm);
     })
 }
 
