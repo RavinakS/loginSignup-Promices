@@ -99,7 +99,7 @@ function userProfile(all_data, indexNum){
     console.log(`Username: ${all_data.user[indexNum]['username']}`);
     console.log(`Gender: ${all_data.user[indexNum]['gender']}`);
     console.log(`Bio: ${all_data.user[indexNum]['description']}`);
-    console.log(`Hobbies ${all_data.user[indexNum]['hobbies']}`);
+    console.log(`Hobbies: ${all_data.user[indexNum]['hobbies']}`);
     console.log(`DOB: ${all_data.user[indexNum]['dob']}`);
     console.log("");
     return "Happy Coding!!!"
