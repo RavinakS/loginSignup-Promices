@@ -19,7 +19,7 @@ function signUp(){
 
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
-                if(response===true){
+                if(response>=0){
                     let userStatus = "Username is already exists.";
                     reject(userStatus);
                 }else{
@@ -76,14 +76,33 @@ function login(){
         const password = readline.question('Password:- ');
         let fileName = "userdetails.json";
         readJSONFile(fileName).then((data)=>{
-            let isUserExsits = checkingUsername(data, username);
-            if(isUserExsits == true){
-                resolve(`${username} you are Logged in Successfully.`);
+            let response = checkingUsername(data, username);
+            if(response >= 0){
+                console.log("");
+                console.log("***");
+                console.log(`${username} you are Logged in Successfully.`);
+                console.log("***");
+                console.log("");
+                let status = userProfile(data, response)
+                resolve(status);
+
             }else{
                 reject(`Invalid Username and Password`);
             }
         })
     })
+}
+
+function userProfile(all_data, indexNum){
+    console.log(">>> Your Profile <<<");
+    console.log("");
+    console.log(`Username: ${all_data.user[indexNum][username]}`);
+    console.log(`Gender: ${all_data.user[indexNum][gender]}`);
+    console.log(`Bio: ${all_data.user[indexNum][description]}`);
+    console.log(`Hobbies ${all_data.user[indexNum][hobbies]}`);
+    console.log(`DOB: ${all_data.user[indexNum][dob]}`);
+    console.log("");
+    return "Happy Coding!!!"
 }
 
 function isNumberInString(password){
@@ -142,14 +161,14 @@ function writeJsonFile(fileName, all_users_dtl){
 }
 
 function checkingUsername(usersdetails, username){
-        let count = 0;
+        var count = 0;
         for(count; count<usersdetails['user'].length; count++){
             if(usersdetails['user'][count]['username']===username){
                 break;
             }
         }
         if(count<usersdetails['user'].length){
-            return true;
+            return count;
         }else{
             return false;
         }
