@@ -2,32 +2,49 @@ const readline = require('readline-sync');
 const fs = require('fs');
 const { resolve } = require('path');
 
-const user = readline.question('Login(L/l) or SignUp(S/s):- ');
-
 function signUp(){
     return new Promise((resolve, reject)=>{
         const userName = readline.question("Type your userName:- ");
         const password1 = readline.question("Enter password:- ");
         const password2 = readline.question("Re-enter the password:- ");
-        let fileName = "userdetails.json";
+        // let fileName = "userdetails.json";
 
         if(password1 === password2){
             passwordValidation(password1).then((resolved)=>{
-                let userDetails = {"username":userName, "password":password1}
-                return userDetails;
+                // console.log(resolved);
+                let fileName = "userdetails.json";
+                return fileName
 
-            }).then((userDetails)=>{
-                let all_users_dtl = readJSONFile(fileName);
-                let response = checkingUsername(all_users_dtl, userName);
+            }).then((filename)=>{
+                let all_users_dtl = readJSONFile(filename);
+                return all_users_dtl
+
+            }).then((all_users_data)=>{
+                let response = checkingUsername(all_users_data, userName);
                 if(response===true){
                     resolve('Username Already Exists.');
                 }else{
+                    let userDetails = {"username":userName, "password":password1}
                     writeJsonFile(fileName, userDetails);
-                    resolve(`Congrats ${userName} you are Signed Up Successfully.`);}
-
-            }).catch((err)=>console.log(err))
+                    reject(`Congrats ${userName} you are Signed Up Successfully.`);}
+            })
+            .catch((err)=>console.log(err))
         }else{
             reject("Both Passwords are not same.");
+        }
+    })
+}
+
+function login(){
+    return new Promise((resolve, reject)=>{
+        const username = readline.question('Username:- ');
+        const password = readline.question('Password:- ');
+        let all_users_data = readJSONFile(fileName);
+        let isUserExsits = checkingUsername(all_users_data, username);
+        if(isUserExsits == true){
+            resolve(true);
+        }else{
+            resolve(false);
         }
     })
 }
@@ -71,10 +88,12 @@ function passwordValidation(password){
 }
 
 function readJSONFile(fileName){
+    return new Promise((resolve, reject)=>{
         let rawdata = fs.readFileSync(fileName);
         let dataInObjForm = JSON.parse(rawdata);
         // This function handles parsing the raw data, converts it to ASCII text, and parses the actual JSON data in to a JavaScript object
-        return dataInObjForm;
+        resolve(dataInObjForm);
+    })
 }
 
 function writeJsonFile(fileName, user_details){
@@ -98,6 +117,8 @@ function checkingUsername(usersdetails, username){
             return false;
         }
 }
+
+const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
     signUp().then((resolveMessage)=>{
