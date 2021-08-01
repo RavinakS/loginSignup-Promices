@@ -52,7 +52,7 @@ function signUp(){
                     resolve(`Congrats ${username} you are Signed Up Successfully.`);
                 }else{
                     console.log("Username is " + user);
-                    let userStatus = "Username is " + status;
+                    let userStatus = "Username is " + user;
                     return userStatus;
                 }
 
