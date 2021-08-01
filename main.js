@@ -53,7 +53,7 @@ function signUp(){
                 }else{
                     console.log("Username is " + user);
                     let userStatus = "Username is " + user;
-                    return userStatus;
+                    resolve(userStatus);
                 }
 
             }).catch((err)=>console.log(err))
@@ -61,7 +61,7 @@ function signUp(){
         }else{
             reject("Both Passwords are not same.");
         }
-    })
+    });
 }
 
 function login(){
