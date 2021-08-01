@@ -15,16 +15,19 @@ function signUp(){
                 return fileName
 
             }).then((filename)=>{
+                console.log("reading");
                 let all_users_dtl = readJSONFile(filename);
                 return all_users_dtl
 
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response===true){
+                    console.log("false");
                     return false;
                 }else{
                     // return readJSONFile(fileName);
                     let all_users_dtl = readJSONFile(filename);
+                    console.log("reading");
                     return all_users_dtl
                     // let userDetails = {"username":userName, "password":password1}
                     // return userDetails;
@@ -33,6 +36,7 @@ function signUp(){
                     // }
             }).then((all_users_data)=>{
                 if(all_users_data !== false){
+                    console.log("writing");
                     let fileName = "userdetails.json";
                     let userDetails = {"username":userName, "password":password1}
                     all_users_data.user.push(user_details);
@@ -40,6 +44,7 @@ function signUp(){
                     // return username;
                     // resolve(`Congrats ${userName} you are Signed Up Successfully.`);
                 }else{
+                    console.log("already there");
                     return "Already Exsits."
                 }
             }).then((status)=>{
