@@ -116,7 +116,7 @@ function readJSONFile(fileName){
 
 function writeJsonFile(fileName, all_users_dtl){
     return new Promise((resolve, reject)=>{
-        all_users_dtl = JSON.stringify(all_users_dtl);
+        all_users_dtl = JSON.stringify(all_users_dtl, null, 2);
         fs.writeFileSync(fileName, all_users_dtl);
         resolve("Done");
     })

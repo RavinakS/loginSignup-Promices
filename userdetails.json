@@ -1,1 +1,40 @@
-{"user":[{"username":"Sikha","password":"si@12"},{"username":"ravina","password":"12@12"},{"username":"bharti","password":"12#23"},{"username":"ruvi","password":"hi@5"},{"username":"me","password":"12#321"},{"username":"hii","password":"hi12#1"},{"username":"sita","password":"12#12"}]}
+{
+    "user": [
+        {
+            "username": "Sikha",
+            "password": "si@12"
+        },
+        {
+            "username": "ravina",
+            "password": "12@12"
+        },
+        {
+            "username": "bharti",
+            "password": "12#23"
+        },
+        {
+            "username": "ruvi",
+            "password": "hi@5"
+        },
+        {
+            "username": "me",
+            "password": "12#321"
+        },
+        {
+            "username": "hii",
+            "password": "hi12#1"
+        },
+        {
+            "username": "sita",
+            "password": "12#12"
+        },
+        {
+            "username": "reena",
+            "password": "re#21"
+        },
+        {
+            "username": "durga",
+            "password": "12@12"
+        }
+    ]
+}
