@@ -20,37 +20,30 @@ function signUp(){
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response===true){
-                    return false;
+                    let userStatus = "Username is already exists.";
+                    reject(userStatus);
                 }else{
                     let fileName = "userdetails.json";
-                    // return readJSONFile(fileName);
                     let all_users_dtl = readJSONFile(fileName);
                     return all_users_dtl
-                    // let userDetails = {"username":userName, "password":password1}
-                    // return userDetails;
                 }
-                // }else{
-                    // }
+    
             }).then((all_users_data)=>{
-                if(all_users_data !== false){
-                    let fileName = "userdetails.json";
-                    let userDetails = {"username":userName, "password":password1}
-                    all_users_data.user.push(userDetails);
-                    return writeJsonFile(fileName, all_users_data);
-                    // return username;
-                    // resolve(`Congrats ${userName} you are Signed Up Successfully.`);
-                }else{
-                    return "Already Exsits."
-                }
-            }).then((user)=>{
-                if(user==='Done'){
-                    resolve(`Congrats ${userName} you are Signed Up Successfully.`);
-                }else{
-                    let userStatus = "Username is " + user;
-                    reject(userStatus);
-                }
+                let fileName = "userdetails.json";
+                let userDetails = {"username":userName, "password":password1}
+                all_users_data.user.push(userDetails);
+                return writeJsonFile(fileName, all_users_data);
 
-            }).catch((err)=>console.log(err))
+            }).then((user)=>{
+                resolve(`Congrats ${userName} you are Signed Up Successfully.`);
+
+            }).catch((err)=>{
+                console.log('');
+                console.log("***");
+                console.log(err);
+                console.log("***");
+                console.log('');
+            })
 
         }else{
             reject("Both Passwords are not same.");
@@ -123,12 +116,9 @@ function readJSONFile(fileName){
 
 function writeJsonFile(fileName, all_users_dtl){
     return new Promise((resolve, reject)=>{
-        // readJSONFile(fileName).then((all_users_dtl)=>{
-            // all_users_dtl.user.push(user_details);
-            all_users_dtl = JSON.stringify(all_users_dtl);
-            fs.writeFileSync(fileName, all_users_dtl);
-            resolve("Done");
-        // })
+        all_users_dtl = JSON.stringify(all_users_dtl);
+        fs.writeFileSync(fileName, all_users_dtl);
+        resolve("Done");
     })
 }
 
@@ -150,14 +140,36 @@ const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
     signUp().then((resolveMessage)=>{
-        console.log('Hii dear,');
+        console.log('');
+        console.log("***");
         console.log(resolveMessage);
-        console.log("Go with Login.");
-    }).catch((error)=>console.error(error))
+        console.log("***");
+        console.log("");
+    }).catch((error)=>{
+        console.log('');
+        console.log("***");
+        console.error(error);
+        console.log("***");
+        console.log("");
+    })
 }else if(user === 'L' || user === 'l'){
     login().then((loginStatus)=>{
+        console.log('');
+        console.log("***");
         console.log(loginStatus);
-    }).catch((err)=>{console.error(err);})
+        console.log("***");
+        console.log("");
+    }).catch((err)=>{
+        console.log('');
+        console.log("***");
+        console.error(err);
+        console.log("***");
+        console.log("");
+    })
 }else{
+    console.log("");
+    console.log("***");
     console.log(`Please type "L" or "l" for Login and "S" or "s" for Sign-Up.`);
+    console.log("***");
+    console.log("");
 }
