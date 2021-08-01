@@ -64,7 +64,7 @@ function login(){
         const password = readline.question('Password:- ');
         let fileName = "userdetails.json";
         readJSONFile(fileName).then((data)=>{
-            let isUserExsits = checkingUsername(all_users_data, username);
+            let isUserExsits = checkingUsername(data, username);
             if(isUserExsits == true){
                 resolve(`${username} you are Logged in Successfully.`);
             }else{
