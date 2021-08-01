@@ -29,13 +29,32 @@ function signUp(){
                 }
     
             }).then((all_users_data)=>{
+                console.log("");
+                console.log("***");
+                console.log(`Congrats ${userName} you are Signed Up Successfully.`);
+                console.log("***");
+                console.log("");
+                console.log("About yourself:-");
+                console.log("");
+                let description = readline.question("Description:- ");
+                let birthDate = readline.question("Birth Date:- ");
+                let hobbies = readline.question("Hobbies:- ");
+                let gender = readline.question("Gender:- ");
+
                 let fileName = "userdetails.json";
-                let userDetails = {"username":userName, "password":password1}
+                let userDetails = {
+                    "username": userName, 
+                    "password": password1,
+                    "description": description,
+                    "dob": birthDate,
+                    "hobbies": hobbies,
+                    "gender": gender
+                }
                 all_users_data.user.push(userDetails);
                 return writeJsonFile(fileName, all_users_data);
 
             }).then((user)=>{
-                resolve(`Congrats ${userName} you are Signed Up Successfully.`);
+                resolve();
 
             }).catch((err)=>{
                 console.log('');
@@ -116,7 +135,7 @@ function readJSONFile(fileName){
 
 function writeJsonFile(fileName, all_users_dtl){
     return new Promise((resolve, reject)=>{
-        all_users_dtl = JSON.stringify(all_users_dtl, null, 2);
+        all_users_dtl = JSON.stringify(all_users_dtl, null, 4);
         fs.writeFileSync(fileName, all_users_dtl);
         resolve("Done");
     })
