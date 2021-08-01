@@ -52,7 +52,8 @@ function signUp(){
                     resolve(`Congrats ${username} you are Signed Up Successfully.`);
                 }else{
                     console.log("Username is " + status);
-                    return "Username is " + status
+                    let userStatus = "Username is " + status;
+                    return userStatus;
                 }
 
             }).catch((err)=>console.log(err))
