@@ -1,30 +1,6 @@
 {
     "user": [
         {
-            "username": "Sikha",
-            "password": "si@12"
-        },
-        {
-            "username": "ravina",
-            "password": "12@12"
-        },
-        {
-            "username": "bharti",
-            "password": "12#23"
-        },
-        {
-            "username": "ruvi",
-            "password": "hi@5"
-        },
-        {
-            "username": "jyoti",
-            "password": "12@we"
-        },
-        {
-            "username": "sapna",
-            "password": "#we1"
-        },
-        {
             "username": "ravi",
             "password": "12@2",
             "description": "Node.js developer",

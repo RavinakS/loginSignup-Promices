@@ -78,12 +78,13 @@ function login(){
         readJSONFile(fileName).then((data)=>{
             let response = checkingUsername(data, username);
             if(response >= 0){
+                let all_users_data = data;
                 console.log("");
                 console.log("***");
                 console.log(`${username} you are Logged in Successfully.`);
                 console.log("***");
                 console.log("");
-                let status = userProfile(data, response)
+                let status = userProfile(all_users_data, response)
                 resolve(status);
 
             }else{
