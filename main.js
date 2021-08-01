@@ -7,7 +7,6 @@ function signUp(){
         const userName = readline.question("Type your userName:- ");
         const password1 = readline.question("Enter password:- ");
         const password2 = readline.question("Re-enter the password:- ");
-        // let fileName = "userdetails.json";
 
         if(password1 === password2){
             passwordValidation(password1).then((resolved)=>{
@@ -24,6 +23,7 @@ function signUp(){
                 if(response===true){
                     resolve('Username Already Exists.');
                 }else{
+                    let fileName = "userdetails.json";
                     let userDetails = {"username":userName, "password":password1}
                     writeJsonFile(fileName, userDetails);
                     reject(`Congrats ${userName} you are Signed Up Successfully.`);}
