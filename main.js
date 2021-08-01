@@ -47,11 +47,11 @@ function signUp(){
                     console.log("already there");
                     return "Already Exsits."
                 }
-            }).then((status)=>{
-                if(status==='Done'){
+            }).then((user)=>{
+                if(user==='Done'){
                     resolve(`Congrats ${username} you are Signed Up Successfully.`);
                 }else{
-                    console.log("Username is " + status);
+                    console.log("Username is " + user);
                     let userStatus = "Username is " + status;
                     return userStatus;
                 }
@@ -154,6 +154,7 @@ const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
     signUp().then((resolveMessage)=>{
+        console.log('hello');
         console.log(resolveMessage);
     }).catch((error)=>console.error(error))
 }
