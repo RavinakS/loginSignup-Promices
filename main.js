@@ -62,13 +62,15 @@ function login(){
     return new Promise((resolve, reject)=>{
         const username = readline.question('Username:- ');
         const password = readline.question('Password:- ');
-        let all_users_data = readJSONFile(fileName);
-        let isUserExsits = checkingUsername(all_users_data, username);
-        if(isUserExsits == true){
-            resolve(true);
-        }else{
-            resolve(false);
-        }
+        let fileName = "userdetails.json";
+        readJSONFile(fileName).then((data)=>{
+            let isUserExsits = checkingUsername(all_users_data, username);
+            if(isUserExsits == true){
+                resolve(`${username} you are Logged in Successfully.`);
+            }else{
+                reject(`Invalid Username and Password`);
+            }
+        })
     })
 }
 
@@ -152,4 +154,10 @@ if(user ==='s' || user === 'S'){
         console.log(resolveMessage);
         console.log("Go with Login.");
     }).catch((error)=>console.error(error))
+}else if(user === 'L' || user === 'l'){
+    login().then((loginStatus)=>{
+        console.log(loginStatus);
+    }).catch((err)=>{console.error(err);})
+}else{
+    console.log(`Please type "L" or "l" for Login and "S" or "s" for Sign-Up.`);
 }
