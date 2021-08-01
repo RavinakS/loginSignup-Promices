@@ -10,24 +10,21 @@ function signUp(){
 
         if(password1 === password2){
             passwordValidation(password1).then((resolved)=>{
-                // console.log(resolved);
                 let fileName = "userdetails.json";
                 return fileName
 
             }).then((filename)=>{
-                console.log("reading");
                 let all_users_dtl = readJSONFile(filename);
                 return all_users_dtl
 
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response===true){
-                    console.log("false");
                     return false;
                 }else{
+                    let fileName = "userdetails.json";
                     // return readJSONFile(fileName);
-                    let all_users_dtl = readJSONFile(filename);
-                    console.log("reading");
+                    let all_users_dtl = readJSONFile(fileName);
                     return all_users_dtl
                     // let userDetails = {"username":userName, "password":password1}
                     // return userDetails;
@@ -36,22 +33,19 @@ function signUp(){
                     // }
             }).then((all_users_data)=>{
                 if(all_users_data !== false){
-                    console.log("writing");
                     let fileName = "userdetails.json";
                     let userDetails = {"username":userName, "password":password1}
-                    all_users_data.user.push(user_details);
-                    return writeJsonFile(fileName, userDetails);
+                    all_users_data.user.push(userDetails);
+                    return writeJsonFile(fileName, all_users_data);
                     // return username;
                     // resolve(`Congrats ${userName} you are Signed Up Successfully.`);
                 }else{
-                    console.log("already there");
                     return "Already Exsits."
                 }
             }).then((user)=>{
                 if(user==='Done'){
-                    resolve(`Congrats ${username} you are Signed Up Successfully.`);
+                    resolve(`Congrats ${userName} you are Signed Up Successfully.`);
                 }else{
-                    console.log("Username is " + user);
                     let userStatus = "Username is " + user;
                     resolve(userStatus);
                 }
@@ -125,7 +119,7 @@ function readJSONFile(fileName){
     })
 }
 
-function writeJsonFile(fileName, user_details){
+function writeJsonFile(fileName, all_users_dtl){
     return new Promise((resolve, reject)=>{
         // readJSONFile(fileName).then((all_users_dtl)=>{
             // all_users_dtl.user.push(user_details);
@@ -154,7 +148,8 @@ const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
     signUp().then((resolveMessage)=>{
-        console.log('hello');
+        console.log('Hii dear,');
         console.log(resolveMessage);
+        console.log("Go with Login.");
     }).catch((error)=>console.error(error))
 }
