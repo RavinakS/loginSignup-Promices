@@ -21,14 +21,31 @@ function signUp(){
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response===true){
-                    resolve('Username Already Exists.');
+                    return 'Username Already Exists.';
                 }else{
+                    // return readJSONFile(fileName);
+                    let all_users_dtl = readJSONFile(filename);
+                    return all_users_dtl
+                    // let userDetails = {"username":userName, "password":password1}
+                    // return userDetails;
+                }
+                // }else{
+                    // }
+            }).then((all_users_data)=>{
+                if(all_users_data !== 'Username Already Exists.'){
                     let fileName = "userdetails.json";
                     let userDetails = {"username":userName, "password":password1}
-                    writeJsonFile(fileName, userDetails);
-                    reject(`Congrats ${userName} you are Signed Up Successfully.`);}
-            })
-            .catch((err)=>console.log(err))
+                    all_users_data.user.push(user_details);
+                    return writeJsonFile(fileName, userDetails);
+                    // return username;
+                    // resolve(`Congrats ${userName} you are Signed Up Successfully.`);
+                }
+            }).then((status)=>{
+                if(status==='Done')
+                resolve(`Congrats ${username} you are Signed Up Successfully.`);
+
+            }).catch((err)=>console.log(err))
+            
         }else{
             reject("Both Passwords are not same.");
         }
@@ -97,11 +114,14 @@ function readJSONFile(fileName){
 }
 
 function writeJsonFile(fileName, user_details){
-        all_users_dtl = readJSONFile(fileName);
-        all_users_dtl.user.push(user_details);
-        all_users_dtl = JSON.stringify(all_users_dtl);
-        fs.writeFileSync(fileName, all_users_dtl);
-        return user_details;
+    return new Promise((resolve, reject)=>{
+        // readJSONFile(fileName).then((all_users_dtl)=>{
+            // all_users_dtl.user.push(user_details);
+            all_users_dtl = JSON.stringify(all_users_dtl);
+            fs.writeFileSync(fileName, all_users_dtl);
+            resolve("Done");
+        // })
+    })
 }
 
 function checkingUsername(usersdetails, username){
