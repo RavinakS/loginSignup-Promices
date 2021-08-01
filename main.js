@@ -21,7 +21,7 @@ function signUp(){
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response===true){
-                    return 'Username Already Exists.';
+                    return false;
                 }else{
                     // return readJSONFile(fileName);
                     let all_users_dtl = readJSONFile(filename);
@@ -32,20 +32,25 @@ function signUp(){
                 // }else{
                     // }
             }).then((all_users_data)=>{
-                if(all_users_data !== 'Username Already Exists.'){
+                if(all_users_data !== false){
                     let fileName = "userdetails.json";
                     let userDetails = {"username":userName, "password":password1}
                     all_users_data.user.push(user_details);
                     return writeJsonFile(fileName, userDetails);
                     // return username;
                     // resolve(`Congrats ${userName} you are Signed Up Successfully.`);
+                }else{
+                    return "Already Exsits."
                 }
             }).then((status)=>{
-                if(status==='Done')
-                resolve(`Congrats ${username} you are Signed Up Successfully.`);
+                if(status==='Done'){
+                    resolve(`Congrats ${username} you are Signed Up Successfully.`);
+                }else{
+                    return "Username is " + status
+                }
 
             }).catch((err)=>console.log(err))
-            
+
         }else{
             reject("Both Passwords are not same.");
         }
