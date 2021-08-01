@@ -51,6 +51,7 @@ function signUp(){
                 if(status==='Done'){
                     resolve(`Congrats ${username} you are Signed Up Successfully.`);
                 }else{
+                    console.log("Username is " + status);
                     return "Username is " + status
                 }
 
