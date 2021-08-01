@@ -23,6 +23,30 @@
         {
             "username": "sapna",
             "password": "#we1"
+        },
+        {
+            "username": "ravi",
+            "password": "12@2",
+            "description": "Node.js developer",
+            "dob": "1234",
+            "hobbies": "reading book",
+            "gender": "female"
+        },
+        {
+            "username": "sde",
+            "password": "12@3",
+            "description": "fds",
+            "dob": "123",
+            "hobbies": "weqw",
+            "gender": "f"
+        },
+        {
+            "username": "we",
+            "password": "1@",
+            "description": "qw",
+            "dob": "12",
+            "hobbies": "qwew",
+            "gender": "f"
         }
     ]
 }

@@ -34,12 +34,15 @@ function signUp(){
                 console.log(`Congrats ${userName} you are Signed Up Successfully.`);
                 console.log("***");
                 console.log("");
-                console.log("About yourself:-");
+                console.log("   >>> About yourself <<<");
                 console.log("");
                 let description = readline.question("Description:- ");
                 let birthDate = readline.question("Birth Date:- ");
                 let hobbies = readline.question("Hobbies:- ");
                 let gender = readline.question("Gender:- ");
+                console.log("");
+                console.log("Happy Coding");
+                console.log();
 
                 let fileName = "userdetails.json";
                 let userDetails = {
@@ -52,9 +55,6 @@ function signUp(){
                 }
                 all_users_data.user.push(userDetails);
                 return writeJsonFile(fileName, all_users_data);
-
-            }).then((user)=>{
-                resolve();
 
             }).catch((err)=>{
                 console.log('');
