@@ -47,7 +47,7 @@ function signUp(){
                     resolve(`Congrats ${userName} you are Signed Up Successfully.`);
                 }else{
                     let userStatus = "Username is " + user;
-                    resolve(userStatus);
+                    reject(userStatus);
                 }
 
             }).catch((err)=>console.log(err))
