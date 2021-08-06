@@ -45,6 +45,8 @@ function passwordValidation(password){
                 if(message === "Valid"){
                     resolve('You are logged in successfully');
                 }
+            }).catch((message)=>{
+                reject("Atleas password should contain one special character and one number.");
             })
         }else{
             reject("Atleas password should contain one special character and one number.");
@@ -65,7 +67,7 @@ function writeJsonFile(fileName, all_users_dtl){
     return new Promise((resolve, reject)=>{
         all_users_dtl = JSON.stringify(all_users_dtl, null, 4);
         fs.writeFileSync(fileName, all_users_dtl);
-        resolve("Done");
+        resolve("Happy Coding!!");
     })
 }
 
@@ -95,6 +97,7 @@ function signUp(){
                     let fileName = "userdetails.json";
                     return fileName;
                 }).then((filename)=>{
+                    console.log("hii");
                     return readJSONFile(filename)
                         .then((data)=>{
                             let all_users_dtl = data;
@@ -104,32 +107,23 @@ function signUp(){
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response>=1){
-                    // let userStatus = "Username is already exists.";
                     throw "Username is already exists.";
-                    // reject(userStatus);
                 }else{
-                    // let fileName = "userdetails.json";
-                    // let all_users_dtl = readJSONFile(fileName).then((data)=>{return data})
-                    // console.log(all_users_dtl);
-                    let data = all_users_data;
-                    return data;
+                    return all_users_data;
                 }
     
             }).then((all_users_data)=>{
-                // console.log("");
-                // console.log("***");
+                console.log("");
+                console.log("***");
                 console.log(`Congrats ${userName} you are Signed Up Successfully.`);
-                // console.log("***");
-                // console.log("");
-                // console.log("   >>> About yourself <<<");
-                // console.log("");
+                console.log("***");
+                console.log("");
+                console.log("    >>> About yourself <<<");
+                console.log("");
                 let description = readline.question("Description:- ");
                 let birthDate = readline.question("Birth Date:- ");
                 let hobbies = readline.question("Hobbies:- ");
                 let gender = readline.question("Gender:- ");
-                // console.log("");
-                // console.log("Happy Coding");
-                // console.log();
 
                 let fileName = "userdetails.json";
                 let userDetails = {
@@ -141,14 +135,15 @@ function signUp(){
                     "gender": gender
                 }
                 all_users_data["user"].push(userDetails);
-                return writeJsonFile(fileName, all_users_data).then((result)=>{return result;});
+                resolve(writeJsonFile(fileName, all_users_data).then((result)=>{return result;}));
 
-            }).catch((err)=>{
-                // console.log('');
-                // console.log("***");
-                console.log(err);
-                // console.log("***");
-                // console.log('');
+            })
+            .catch((rejected)=>{
+                console.log('');
+                console.log("***");
+                console.log(rejected);
+                console.log("***");
+                console.log('');
             })
 
         }else{
@@ -185,19 +180,13 @@ const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 if(user ==='s' || user === 'S'){
     signUp() 
     .then((resolveMessage)=>{
-        // console.log('');
-        // console.log("***");
+        console.log('');
+        console.log("***");
         console.log(resolveMessage);
-        // console.log("***");
-        // console.log("");
+        console.log("***");
+        console.log("");
     })
-    .catch((error)=>{
-        // console.log('');
-        // console.log("***");
-        console.log(error);
-        // console.log("***");
-        // console.log("");
-    })
+
 }else if(user === 'L' || user === 'l'){
     login().then((loginStatus)=>{
         console.log('');

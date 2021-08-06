@@ -47,6 +47,30 @@
             "dob": "dsds",
             "hobbies": "dsds",
             "gender": "f"
+        },
+        {
+            "username": "bharti",
+            "password": "@12",
+            "description": "rew",
+            "dob": "dsas",
+            "hobbies": "dsds",
+            "gender": "f"
+        },
+        {
+            "username": "rani",
+            "password": "@12",
+            "description": "fds",
+            "dob": "dsa",
+            "hobbies": "ads",
+            "gender": "dsa"
+        },
+        {
+            "username": "sana",
+            "password": "#2",
+            "description": "fds",
+            "dob": "dsa",
+            "hobbies": "asd",
+            "gender": "f"
         }
     ]
 }
