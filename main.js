@@ -24,7 +24,8 @@ function signUp(){
                     reject(userStatus);
                 }else{
                     let fileName = "userdetails.json";
-                    let all_users_dtl = readJSONFile(fileName);
+                    let all_users_dtl = readJSONFile(fileName).then((data)=>{return data})
+                    console.log(all_users_dtl);
                     return all_users_dtl
                 }
     
@@ -53,7 +54,7 @@ function signUp(){
                     "hobbies": hobbies,
                     "gender": gender
                 }
-                all_users_data.user.push(userDetails);
+                all_users_data["user"].push(userDetails);
                 return writeJsonFile(fileName, all_users_data);
 
             }).catch((err)=>{
