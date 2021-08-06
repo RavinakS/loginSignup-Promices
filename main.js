@@ -30,20 +30,20 @@ function signUp(){
                 }
     
             }).then((all_users_data)=>{
-                console.log("");
-                console.log("***");
+                // console.log("");
+                // console.log("***");
                 console.log(`Congrats ${userName} you are Signed Up Successfully.`);
-                console.log("***");
-                console.log("");
-                console.log("   >>> About yourself <<<");
-                console.log("");
+                // console.log("***");
+                // console.log("");
+                // console.log("   >>> About yourself <<<");
+                // console.log("");
                 let description = readline.question("Description:- ");
                 let birthDate = readline.question("Birth Date:- ");
                 let hobbies = readline.question("Hobbies:- ");
                 let gender = readline.question("Gender:- ");
-                console.log("");
-                console.log("Happy Coding");
-                console.log();
+                // console.log("");
+                // console.log("Happy Coding");
+                // console.log();
 
                 let fileName = "userdetails.json";
                 let userDetails = {
@@ -58,11 +58,11 @@ function signUp(){
                 return writeJsonFile(fileName, all_users_data);
 
             }).catch((err)=>{
-                console.log('');
-                console.log("***");
+                // console.log('');
+                // console.log("***");
                 console.log(err);
-                console.log("***");
-                console.log('');
+                // console.log("***");
+                // console.log('');
             })
 
         }else{
@@ -79,11 +79,11 @@ function login(){
         readJSONFile(fileName).then((data)=>{
             let response = checkingUsername(data, username);
             if(response >= 0){
-                console.log("");
-                console.log("***");
+                // console.log("");
+                // console.log("***");
                 console.log(`${username} you are Logged in Successfully.`);
-                console.log("***");
-                console.log("");
+                // console.log("***");
+                // console.log("");
                 let status = userProfile(data, response)
                 resolve(status);
 
@@ -95,7 +95,7 @@ function login(){
 }
 
 function userProfile(all_data, indexNum){
-    console.log(">>> Your Profile <<<");
+    // console.log(">>> Your Profile <<<");
     console.log("");
     console.log(`Username: ${all_data.user[indexNum]['username']}`);
     console.log(`Gender: ${all_data.user[indexNum]['gender']}`);
@@ -103,7 +103,7 @@ function userProfile(all_data, indexNum){
     console.log(`Hobbies: ${all_data.user[indexNum]['hobbies']}`);
     console.log(`DOB: ${all_data.user[indexNum]['dob']}`);
     console.log("");
-    return "Happy Coding!!!"
+    // return "Happy Coding!!!"
 }
 
 function isNumberInString(password){
@@ -179,31 +179,31 @@ const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
     signUp().then((resolveMessage)=>{
-        console.log('');
-        console.log("***");
+        // console.log('');
+        // console.log("***");
         console.log(resolveMessage);
-        console.log("***");
-        console.log("");
+        // console.log("***");
+        // console.log("");
     }).catch((error)=>{
-        console.log('');
-        console.log("***");
+        // console.log('');
+        // console.log("***");
         console.error(error);
-        console.log("***");
-        console.log("");
+        // console.log("***");
+        // console.log("");
     })
 }else if(user === 'L' || user === 'l'){
     login().then((loginStatus)=>{
-        console.log('');
-        console.log("***");
+        // console.log('');
+        // console.log("***");
         console.log(loginStatus);
-        console.log("***");
-        console.log("");
+        // console.log("***");
+        // console.log("");
     }).catch((err)=>{
-        console.log('');
-        console.log("***");
+        // console.log('');
+        // console.log("***");
         console.error(err);
-        console.log("***");
-        console.log("");
+        // console.log("***");
+        // console.log("");
     })
 }else{
     console.log("");
