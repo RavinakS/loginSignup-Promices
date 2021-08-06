@@ -2,98 +2,6 @@ const readline = require('readline-sync');
 const fs = require('fs');
 const { resolve } = require('path');
 
-function signUp(){
-    return new Promise((resolve, reject)=>{
-        const userName = readline.question("Type your userName:- ");
-        const password1 = readline.question("Enter password:- ");
-        const password2 = readline.question("Re-enter the password:- ");
-
-        if(password1 === password2){
-            passwordValidation(password1).then((resolved)=>{
-                let fileName = "userdetails.json";
-                return fileName
-
-            }).then((filename)=>{
-                let all_users_dtl = readJSONFile(filename);
-                return all_users_dtl
-
-            }).then((all_users_data)=>{
-                let response = checkingUsername(all_users_data, userName);
-                if(response>=0){
-                    let userStatus = "Username is already exists.";
-                    reject(userStatus);
-                }else{
-                    let fileName = "userdetails.json";
-                    let all_users_dtl = readJSONFile(fileName).then((data)=>{return data})
-                    console.log(all_users_dtl);
-                    return all_users_dtl
-                }
-    
-            }).then((all_users_data)=>{
-                // console.log("");
-                // console.log("***");
-                console.log(`Congrats ${userName} you are Signed Up Successfully.`);
-                // console.log("***");
-                // console.log("");
-                // console.log("   >>> About yourself <<<");
-                // console.log("");
-                let description = readline.question("Description:- ");
-                let birthDate = readline.question("Birth Date:- ");
-                let hobbies = readline.question("Hobbies:- ");
-                let gender = readline.question("Gender:- ");
-                // console.log("");
-                // console.log("Happy Coding");
-                // console.log();
-
-                let fileName = "userdetails.json";
-                let userDetails = {
-                    "username": userName, 
-                    "password": password1,
-                    "description": description,
-                    "dob": birthDate,
-                    "hobbies": hobbies,
-                    "gender": gender
-                }
-                all_users_data["user"].push(userDetails);
-                return writeJsonFile(fileName, all_users_data);
-
-            }).catch((err)=>{
-                // console.log('');
-                // console.log("***");
-                console.log(err);
-                // console.log("***");
-                // console.log('');
-            })
-
-        }else{
-            reject("Both Passwords are not same.");
-        }
-    });
-}
-
-function login(){
-    return new Promise((resolve, reject)=>{
-        const username = readline.question('Username:- ');
-        const password = readline.question('Password:- ');
-        let fileName = "userdetails.json";
-        readJSONFile(fileName).then((data)=>{
-            let response = checkingUsername(data, username);
-            if(response >= 0){
-                // console.log("");
-                // console.log("***");
-                console.log(`${username} you are Logged in Successfully.`);
-                // console.log("***");
-                // console.log("");
-                let status = userProfile(data, response)
-                resolve(status);
-
-            }else{
-                reject(`Invalid Username and Password`);
-            }
-        })
-    })
-}
-
 function userProfile(all_data, indexNum){
     // console.log(">>> Your Profile <<<");
     console.log("");
@@ -169,28 +77,126 @@ function checkingUsername(usersdetails, username){
             }
         }
         if(count<usersdetails['user'].length){
-            return count;
+            return count+1;
         }else{
             return false;
         }
 }
 
+function signUp(){
+    return new Promise((resolve, reject)=>{
+        const userName = readline.question("Type your userName:- ");
+        const password1 = readline.question("Enter password:- ");
+        const password2 = readline.question("Re-enter the password:- ");
+
+        if(password1 === password2){
+            passwordValidation(password1)
+                .then((resolved)=>{
+                    let fileName = "userdetails.json";
+                    return fileName;
+                }).then((filename)=>{
+                    return readJSONFile(filename)
+                        .then((data)=>{
+                            let all_users_dtl = data;
+                            return all_users_dtl
+                        })
+
+            }).then((all_users_data)=>{
+                let response = checkingUsername(all_users_data, userName);
+                if(response>=1){
+                    console.log("Hii");
+                    let userStatus = "Username is already exists.";
+                    reject(userStatus);
+                }else{
+                    // let fileName = "userdetails.json";
+                    // let all_users_dtl = readJSONFile(fileName).then((data)=>{return data})
+                    // console.log(all_users_dtl);
+                    let data = all_users_data;
+                    return data;
+                }
+    
+            }).then((all_users_data)=>{
+                // console.log("");
+                // console.log("***");
+                console.log(`Congrats ${userName} you are Signed Up Successfully.`);
+                // console.log("***");
+                // console.log("");
+                // console.log("   >>> About yourself <<<");
+                // console.log("");
+                let description = readline.question("Description:- ");
+                let birthDate = readline.question("Birth Date:- ");
+                let hobbies = readline.question("Hobbies:- ");
+                let gender = readline.question("Gender:- ");
+                // console.log("");
+                // console.log("Happy Coding");
+                // console.log();
+
+                let fileName = "userdetails.json";
+                let userDetails = {
+                    "username": userName, 
+                    "password": password1,
+                    "description": description,
+                    "dob": birthDate,
+                    "hobbies": hobbies,
+                    "gender": gender
+                }
+                all_users_data["user"].push(userDetails);
+                return writeJsonFile(fileName, all_users_data).then((result)=>{return result;});
+
+            }).catch((err)=>{
+                // console.log('');
+                // console.log("***");
+                console.log(err);
+                // console.log("***");
+                // console.log('');
+            })
+
+        }else{
+            reject("Both Passwords are not same.");
+        }
+    });
+}
+
+function login(){
+    return new Promise((resolve, reject)=>{
+        const username = readline.question('Username:- ');
+        const password = readline.question('Password:- ');
+        let fileName = "userdetails.json";
+        readJSONFile(fileName).then((data)=>{
+            let response = checkingUsername(data, username);
+            if(response >= 0){
+                // console.log("");
+                // console.log("***");
+                console.log(`${username} you are Logged in Successfully.`);
+                // console.log("***");
+                // console.log("");
+                let status = userProfile(data, response)
+                resolve(status);
+
+            }else{
+                reject(`Invalid Username and Password`);
+            }
+        })
+    })
+}
+
 const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
-    signUp().then((resolveMessage)=>{
-        // console.log('');
-        // console.log("***");
-        console.log(resolveMessage);
-        // console.log("***");
-        // console.log("");
-    }).catch((error)=>{
-        // console.log('');
-        // console.log("***");
-        console.error(error);
-        // console.log("***");
-        // console.log("");
-    })
+    signUp(); 
+    // .then((resolveMessage)=>{
+    //     // console.log('');
+    //     // console.log("***");
+    //     console.log(resolveMessage);
+    //     // console.log("***");
+    //     // console.log("");
+    // }).catch((error)=>{
+    //     // console.log('');
+    //     // console.log("***");
+    //     console.error(error);
+    //     // console.log("***");
+    //     // console.log("");
+    // })
 }else if(user === 'L' || user === 'l'){
     login().then((loginStatus)=>{
         // console.log('');
