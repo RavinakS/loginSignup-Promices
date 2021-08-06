@@ -186,7 +186,13 @@ if(user ==='s' || user === 'S'){
         console.log("***");
         console.log("");
     })
-
+    .catch((rejected)=>{
+        console.log('');
+        console.log("***");
+        console.log(rejected);
+        console.log("***");
+        console.log("");
+    })
 }else if(user === 'L' || user === 'l'){
     login().then((loginStatus)=>{
         console.log('');

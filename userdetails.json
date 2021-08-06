@@ -71,6 +71,14 @@
             "dob": "dsa",
             "hobbies": "asd",
             "gender": "f"
+        },
+        {
+            "username": "nothing",
+            "password": "hi@1",
+            "description": "my name is nothing",
+            "dob": "don't know",
+            "hobbies": "no hobbies",
+            "gender": "can't tell"
         }
     ]
 }
