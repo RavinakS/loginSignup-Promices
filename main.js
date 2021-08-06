@@ -3,7 +3,7 @@ const fs = require('fs');
 const { resolve } = require('path');
 
 function userProfile(all_data, indexNum){
-    // console.log(">>> Your Profile <<<");
+    console.log("     >>> Your Profile <<<");
     console.log("");
     console.log(`Username: ${all_data.user[indexNum]['username']}`);
     console.log(`Gender: ${all_data.user[indexNum]['gender']}`);
@@ -11,7 +11,7 @@ function userProfile(all_data, indexNum){
     console.log(`Hobbies: ${all_data.user[indexNum]['hobbies']}`);
     console.log(`DOB: ${all_data.user[indexNum]['dob']}`);
     console.log("");
-    // return "Happy Coding!!!"
+    return "Happy Coding!!!"
 }
 
 function isNumberInString(password){
@@ -104,9 +104,9 @@ function signUp(){
             }).then((all_users_data)=>{
                 let response = checkingUsername(all_users_data, userName);
                 if(response>=1){
-                    console.log("Hii");
-                    let userStatus = "Username is already exists.";
-                    reject(userStatus);
+                    // let userStatus = "Username is already exists.";
+                    throw "Username is already exists.";
+                    // reject(userStatus);
                 }else{
                     // let fileName = "userdetails.json";
                     // let all_users_dtl = readJSONFile(fileName).then((data)=>{return data})
@@ -159,18 +159,18 @@ function signUp(){
 
 function login(){
     return new Promise((resolve, reject)=>{
-        const username = readline.question('Username:- ');
+        const userName = readline.question('Username:- ');
         const password = readline.question('Password:- ');
         let fileName = "userdetails.json";
         readJSONFile(fileName).then((data)=>{
-            let response = checkingUsername(data, username);
-            if(response >= 0){
-                // console.log("");
-                // console.log("***");
-                console.log(`${username} you are Logged in Successfully.`);
-                // console.log("***");
-                // console.log("");
-                let status = userProfile(data, response)
+            let response = checkingUsername(data, userName);
+            if(response >= 1){
+                console.log("");
+                console.log("***");
+                console.log(`${userName} you are Logged in Successfully.`);
+                console.log("***");
+                console.log("");
+                let status = userProfile(data, response-1)
                 resolve(status);
 
             }else{
@@ -183,33 +183,34 @@ function login(){
 const user = readline.question('Login(L/l) or SignUp(S/s):- ');
 
 if(user ==='s' || user === 'S'){
-    signUp(); 
-    // .then((resolveMessage)=>{
-    //     // console.log('');
-    //     // console.log("***");
-    //     console.log(resolveMessage);
-    //     // console.log("***");
-    //     // console.log("");
-    // }).catch((error)=>{
-    //     // console.log('');
-    //     // console.log("***");
-    //     console.error(error);
-    //     // console.log("***");
-    //     // console.log("");
-    // })
+    signUp() 
+    .then((resolveMessage)=>{
+        // console.log('');
+        // console.log("***");
+        console.log(resolveMessage);
+        // console.log("***");
+        // console.log("");
+    })
+    .catch((error)=>{
+        // console.log('');
+        // console.log("***");
+        console.log(error);
+        // console.log("***");
+        // console.log("");
+    })
 }else if(user === 'L' || user === 'l'){
     login().then((loginStatus)=>{
-        // console.log('');
-        // console.log("***");
+        console.log('');
+        console.log("***");
         console.log(loginStatus);
-        // console.log("***");
-        // console.log("");
+        console.log("***");
+        console.log("");
     }).catch((err)=>{
-        // console.log('');
-        // console.log("***");
+        console.log('');
+        console.log("***");
         console.error(err);
-        // console.log("***");
-        // console.log("");
+        console.log("***");
+        console.log("");
     })
 }else{
     console.log("");
