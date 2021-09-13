@@ -155,62 +155,84 @@ function signUp(){
 function login(){
     return new Promise((resolve, reject)=>{
         const userName = readline.question('Username:- ');
-        const password = readline.question('Password:- ');
+        // const password = readline.question('Password:- ');
         let fileName = "userdetails.json";
         readJSONFile(fileName).then((data)=>{
             let response = checkingUsername(data, userName);
-            if(response >= 1){
-                console.log("");
-                console.log("***");
-                console.log(`${userName} you are Logged in Successfully.`);
-                console.log("***");
-                console.log("");
-                let status = userProfile(data, response-1)
-                resolve(status);
-
-            }else{
-                reject(`Invalid Username and Password`);
+            if(response === false){
+                resolve(1); // "Username not exist, try creating or give a correct username."
+            }
+            else if(response >= 1){
+                const password = readline.question('Password:- ');
+                if(data['user'][response-1]['password']===password){
+                    console.log("");
+                    console.log("***");
+                    console.log(`${userName} you are Logged in Successfully.`);
+                    console.log("***");
+                    console.log("");
+                    let status = userProfile(data, response-1)
+                    resolve(status);
+                }else{
+                    resolve(2); // Incorrect password
+                }
             }
         })
     })
 }
 
-const user = readline.question('Login(L/l) or SignUp(S/s):- ');
-
-if(user ==='s' || user === 'S'){
-    signUp() 
-    .then((resolveMessage)=>{
-        console.log('');
+while(true){
+    const user = readline.question('Login(L/l) or SignUp(S/s):- ');
+    if(user ==='s' || user === 'S'){
+        signUp() 
+        .then((resolveMessage)=>{
+            console.log('');
+            console.log("***");
+            console.log(resolveMessage);
+            console.log("***");
+            console.log("");
+        })
+        .catch((rejected)=>{
+            console.log('');
+            console.log("***");
+            console.log(rejected);
+            console.log("***");
+            console.log("");
+        })
+        break;
+    }else if(user === 'L' || user === 'l'){
+        login().then((loginStatus)=>{
+            if(loginStatus === 1){
+                console.log('');
+                console.log("***");
+                console.log("Username not exist, try creating or give a correct username.");
+                console.log("***");
+                console.log(""); 
+            }else if(loginStatus === 2){
+                console.log('');
+                console.log("***");
+                console.log("Incorrect password");
+                console.log("***");
+                console.log("");
+            }else{
+                console.log('');
+                console.log("***");
+                console.log(loginStatus);
+                console.log("***");
+                console.log("");
+            }
+        }).catch((err)=>{
+            console.log('');
+            console.log("***");
+            console.error(err);
+            console.log("***");
+            console.log("");
+        })
+        
+    }else{
+        console.log("");
         console.log("***");
-        console.log(resolveMessage);
+        console.log(`Please type "L" or "l" for Login and "S" or "s" for Sign-Up.`);
         console.log("***");
         console.log("");
-    })
-    .catch((rejected)=>{
-        console.log('');
-        console.log("***");
-        console.log(rejected);
-        console.log("***");
-        console.log("");
-    })
-}else if(user === 'L' || user === 'l'){
-    login().then((loginStatus)=>{
-        console.log('');
-        console.log("***");
-        console.log(loginStatus);
-        console.log("***");
-        console.log("");
-    }).catch((err)=>{
-        console.log('');
-        console.log("***");
-        console.error(err);
-        console.log("***");
-        console.log("");
-    })
-}else{
-    console.log("");
-    console.log("***");
-    console.log(`Please type "L" or "l" for Login and "S" or "s" for Sign-Up.`);
-    console.log("***");
-    console.log("");
+    }
 }
