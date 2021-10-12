@@ -227,7 +227,6 @@ while(true){
             console.log("***");
             console.log("");
         })
-        
     }else{
         console.log("");
         console.log("***");
