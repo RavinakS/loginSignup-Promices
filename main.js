@@ -1,6 +1,6 @@
 const readline = require('readline-sync');
 const fs = require('fs');
-const { resolve } = require('path');
+// const { resolve } = require('path');
 
 function userProfile(all_data, indexNum){
     console.log("     >>> Your Profile <<<");
